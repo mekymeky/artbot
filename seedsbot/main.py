@@ -86,7 +86,7 @@ async def on_message_delete(message):
 
 def load_token():
     env_token = os.getenv(TOKEN_ENV_VAR)
-    if env_token is not None and len(env_token) < 3:
+    if env_token is not None and len(env_token) > 3:
         return env_token
     try:
         token_file = open(TOKEN_FILE_NAME, "r")
