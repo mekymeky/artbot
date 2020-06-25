@@ -17,6 +17,8 @@ ART_SOURCE = "art-gallery"
 ART_TARGET = "art-discussion"
 TARGET_CACHE_TTL = 60*60
 
+BOT_MSG_DELETION_EMOJI = "🚫"
+
 
 class BotState:
     def __init__(self, bot):
@@ -61,12 +63,15 @@ async def on_message(message):
             if target_channel is None:
                 print("Error: no target channel available (" + ART_TARGET + ")")
             else:
-                await target_channel.send(content)
+                BOT_STATE.last_art_origin = message
+                BOT_STATE.last_art_copy = await target_channel.send(content)
 
             
 @BOT.event
 async def on_reaction_add(reaction, user):
-    print(reaction, reaction.emoji)
+    if reaction.message.author == BOT.user and reaction.emoji == BOT_MSG_DELETION_EMOJI:
+            print("Message copy deletion initiated by", user.name)
+            await reaction.message.delete()
 
 
 @BOT.event
