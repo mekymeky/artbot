@@ -1,3 +1,4 @@
 import seedsbot.main as seedsbot
 
-seedsbot.run()
+if __name__ == "__main__":
+    seedsbot.run()
