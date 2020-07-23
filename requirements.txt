@@ -1,1 +1,2 @@
+--allow-unverified discord
 discord==1.3.4
